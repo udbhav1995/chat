@@ -1,0 +1,6 @@
+{
+  "appId": "com.kingofest.chat",
+  "appName": "chat",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}
