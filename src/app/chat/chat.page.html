@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Chat</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let chat of chats | async">
+      <ion-icon name="logo-ionic" slot="start"></ion-icon>
+      {{chat.content}}
+    </ion-item>
+  </ion-list>
+  <a routerLink="/login">Login Now</a><br>
+  <ion-button (click)="addChat()" shape="round" color="primary" fill="outline">Add Chat</ion-button>
+</ion-content>

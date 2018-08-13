@@ -3,7 +3,16 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 export const environment = {
-  production: false
+  production: false,
+  // AF2 Settings
+  firebaseConfig : {
+    apiKey: "AIzaSyB_DT-hIOMPOVfuix_GchO16rhnhofimK4",
+    authDomain: "chat-kof.firebaseapp.com",
+    databaseURL: "https://chat-kof.firebaseio.com",
+    projectId: "chat-kof",
+    storageBucket: "chat-kof.appspot.com",
+    messagingSenderId: "810989844405"
+  }
 };
 
 /*

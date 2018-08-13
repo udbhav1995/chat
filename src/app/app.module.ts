@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, RouteReuseStrategy } from '@angular/router';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -11,17 +15,16 @@ import { AppComponent } from './app.component';
 
 // Import the AF2 Module
 import { AngularFireModule } from 'angularfire2';
+import * as firebase from "firebase";
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
-// AF2 Settings
-export const firebaseConfig = {
-  apiKey: "AIzaSyB_DT-hIOMPOVfuix_GchO16rhnhofimK4",
-  authDomain: "chat-kof.firebaseapp.com",
-  databaseURL: "https://chat-kof.firebaseio.com",
-  projectId: "chat-kof",
-  storageBucket: "chat-kof.appspot.com",
-  messagingSenderId: "810989844405"
-};
+// The translate loader needs to know where to load i18n files
+// in Ionic's static asset pipeline.
+export function HttpLoaderFactory(http: HttpClient) {
+	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,9 +32,18 @@ export const firebaseConfig = {
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule,
-    AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireDatabaseModule
+		HttpClientModule,
+    AppRoutingModule,TranslateModule.forRoot({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: HttpLoaderFactory,
+				deps: [HttpClient]
+			}
+		}),
+    AngularFireModule.initializeApp(environment.firebaseConfig, "kof-chat"),
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireDatabaseModule,
+		AngularFireAuthModule
   ],
   providers: [
     StatusBar,
@@ -40,4 +52,8 @@ export const firebaseConfig = {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+	constructor(){
+		firebase.initializeApp(environment.firebaseConfig);
+	}
+}

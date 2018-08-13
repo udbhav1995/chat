@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { TabsPage } from './tabs.page';
-import { HomePage } from '../home/home.page';
+import { ChatPage } from '../chat/chat.page';
 import { AboutPage } from '../about/about.page';
 import { ContactPage } from '../contact/contact.page';
 
@@ -12,9 +12,9 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'home',
-        outlet: 'home',
-        component: HomePage
+        path: 'chat',
+        outlet: 'chat',
+        component: ChatPage
       },
       {
         path: 'about',
@@ -30,7 +30,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/tabs/(home:home)',
+    redirectTo: '/tabs/(chat:chat)',
     pathMatch: 'full'
   }
 ];
